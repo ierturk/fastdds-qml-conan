@@ -1,0 +1,8 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/">
+        <file>src/qml/main.qml</file>
+        <file>src/qml/MessagePanel.qml</file>
+        <file>src/qml/SendMessageForm.qml</file>
+    </qresource>
+</RCC>
