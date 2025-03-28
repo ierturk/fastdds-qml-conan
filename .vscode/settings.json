@@ -1,8 +1,9 @@
 {
-    "cmake.configureSettings": {
-      "CMAKE_TOOLCHAIN_FILE": "${workspaceFolder}/build/generators/conan_toolchain.cmake",
-      "CMAKE_PREFIX_PATH": "${workspaceFolder}/build/generators"
+    "cmake.useCMakePresets": "always",
+    "terminal.integrated.profiles.windows": {
+        "MSVC": {
+            "path": "cmd.exe",
+            "args": ["/k", "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Auxiliary\\Build\\vcvars64.bat"]
+        }
     },
-    "cmake.buildDirectory": "${workspaceFolder}/build",
-    "cmake.generator": "Ninja"
 }

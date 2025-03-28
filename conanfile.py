@@ -58,11 +58,15 @@ class FastDDSQMLAppConan(ConanFile):
             raise ConanInvalidConfiguration("Visual Studio 2019 or higher is required for C++20 support")
     
     def generate(self):
-        # Generate CMake toolchain file
         tc = CMakeToolchain(self)
-        tc.generator = "Ninja"  # Use Ninja as the generator
+        tc.generator = "Ninja"
         tc.variables["CMAKE_POSITION_INDEPENDENT_CODE"] = self.options.get_safe("fPIC", True)
-        tc.variables["CMAKE_CXX_STANDARD"] = "20"  # Set C++20 in toolchain
+        tc.variables["CMAKE_CXX_STANDARD"] = "20"
+
+        tc.cache_variables["CMAKE_RUNTIME_OUTPUT_DIRECTORY"] = "bin"
+        tc.cache_variables["CMAKE_LIBRARY_OUTPUT_DIRECTORY"] = "lib"
+        tc.cache_variables["CMAKE_ARCHIVE_OUTPUT_DIRECTORY"] = "lib"
+
         tc.generate()
         
         # Generate CMake dependency files
