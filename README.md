@@ -3,7 +3,7 @@
 This project demonstrates how to use Fast DDS with a QML GUI, managed by Conan 2 using a conanfile.py recipe.
 
 ## Prerequisites
-
+- FastDDSGen V2 tool from eProsima (included in FastDDS installation for Windows)
 - CMake 3.15+
 - MSVC C++ compiler supporting C++20
 - Conan 2.0+
