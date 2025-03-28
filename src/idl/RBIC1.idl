@@ -1,0 +1,103 @@
+// Request and reply for OutLin
+struct OutLinRequest {
+    float Zp1m;
+    float Zp2m;
+    float A;
+    float B;
+};
+
+struct OutLinReply {
+    boolean success;
+    float C0;
+    float C1;
+};
+
+// Request and reply for TLin
+struct TLinRequest {
+    float Ztmed;
+    float Ztupp;
+    float Tmed;
+    float Tupp;
+};
+
+struct TLinReply {
+    boolean success;
+    float Ct0;
+    float Ct1;
+};
+
+// Request and reply for OutQuad
+struct OutQuadRequest {
+    float Zp1m;
+    float Zp2m;
+    float Zp3m;
+    float A;
+    float B;
+    float M;
+    int32 adc_reso;
+};
+
+struct OutQuadReply {
+    boolean success;
+    float C0;
+    float C1;
+    float C2;
+};
+
+// Request and reply for OutThird
+struct OutThirdRequest {
+    float Zp1m;
+    float Zp2m;
+    float Zp3m;
+    float Zp4m;
+    float A;
+    float B;
+    float M;
+    float M2;
+    int32 adc_reso;
+};
+
+struct OutThirdReply {
+    boolean success;
+    float C0;
+    float C1;
+    float C2;
+    float C3;
+};
+
+// Request and reply for TQuad
+struct TQuadRequest {
+    float Ztlow;
+    float Ztupp;
+    float Ztmed;
+    float Tlow;
+    float Tupp;
+    float Tmed;
+    int32 adc_reso;
+};
+
+struct TQuadReply {
+    boolean success;
+    float Ct0;
+    float Ct1;
+    float Ct2;
+};
+
+// Request and reply for DLLVersion
+struct DLLVersionRequest {
+    // No input parameters
+};
+
+struct DLLVersionReply {
+    boolean success;
+    string version;
+};
+
+// Request and reply for getMessage
+struct GetMessageRequest {
+    // No input parameters
+};
+
+struct GetMessageReply {
+    string message;
+};
