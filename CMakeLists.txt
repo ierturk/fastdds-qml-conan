@@ -12,11 +12,10 @@ set(CMAKE_AUTOUIC ON)
 
 # Find dependencies (installed by Conan)
 find_package(fastdds REQUIRED)
-# find_package(fastcdr REQUIRED)
-find_package(Qt5 COMPONENTS Core Quick Qml REQUIRED)
+find_package(Qt6 COMPONENTS Core Quick Qml REQUIRED)
 
 # QML resources
-qt5_add_resources(QML_RESOURCES
+qt_add_resources(QML_RESOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/resources.qrc
 )
 
@@ -37,10 +36,9 @@ add_executable(fastdds_qml
 # Link with Fast DDS and Qt libraries
 target_link_libraries(fastdds_qml PRIVATE
     fast-dds::fast-dds
-    # fastcdr::fastcdr
-    Qt5::Core
-    Qt5::Quick
-    Qt5::Qml
+    Qt6::Core
+    Qt6::Quick
+    Qt6::Qml
 )
 
 # Include directories
@@ -52,7 +50,7 @@ install(TARGETS fastdds_qml DESTINATION bin)
 # Windows-specific deployment
 if(WIN32)
     # Copy Qt plugins for deployment
-    get_target_property(_qmake_executable Qt5::qmake IMPORTED_LOCATION)
+    get_target_property(_qmake_executable Qt6::qmake IMPORTED_LOCATION)
     get_filename_component(_qt_bin_dir "${_qmake_executable}" DIRECTORY)
     
     add_custom_command(TARGET fastdds_qml POST_BUILD

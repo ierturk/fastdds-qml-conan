@@ -33,13 +33,20 @@ class FastDDSQMLAppConan(ConanFile):
         self.options["qt/*"].qtdeclarative = True
         self.options["qt/*"].qttools = True
         self.options["qt/*"].with_vulkan = False
+        self.options["qt/*"].gui=True
+        self.options["qt/*"].qtqmltools=True
+        self.options["qt/*"].qtquicktools=True
+        self.options["qt/*"].qtshadertools=True
+        self.options["qt/*"].qttranslations=False
+        self.options["qt/*"].qtsvg=True
+        self.options["qt/*"].opengl="desktop"
     
     def layout(self):
         cmake_layout(self)
     
     def requirements(self):
         self.requires("fast-dds/2.14.3")
-        self.requires("qt/5.15.16")
+        self.requires("qt/6.5.3")
 
     def validate(self):
         # Validate compiler supports C++20
