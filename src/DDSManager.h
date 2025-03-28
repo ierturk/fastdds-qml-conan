@@ -13,7 +13,7 @@
 #include <fastdds/dds/subscriber/SampleInfo.hpp>
 #include <fastdds/dds/topic/Topic.hpp>
 
-#include "HelloWorldPubSubTypes.h"
+#include "HelloWorldMsgPubSubTypes.h"
 
 using namespace eprosima::fastdds::dds;
 

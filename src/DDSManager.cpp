@@ -11,7 +11,7 @@ DDSManager::DDSManager(QObject *parent)
     , m_topic(nullptr)
     , m_writer(nullptr)
     , m_reader(nullptr)
-    , m_type(new HelloWorldPubSubType())
+    , m_type(new HelloWorldMsgPubSubType())
     , m_running(false)
 {
     setStatus("Initializing...");
@@ -62,7 +62,7 @@ bool DDSManager::init()
 
     // Create topic
     setStatus("Creating topic...");
-    m_topic = m_participant->create_topic("HelloWorldTopic", "HelloWorld", TOPIC_QOS_DEFAULT);
+    m_topic = m_participant->create_topic("HelloWorldMasTopic", "HelloWorldMsg", TOPIC_QOS_DEFAULT);
     if (m_topic == nullptr) {
         setStatus("Error creating topic");
         return false;
@@ -110,11 +110,11 @@ void DDSManager::sendMessage(const QString& message)
     }
 
     static int index = 0;
-    HelloWorld hello;
-    hello.index(++index);
-    hello.message(message.toStdString());
+    HelloWorldMsg hello_msg;
+    hello_msg.index(++index);
+    hello_msg.message(message.toStdString());
 
-    if (static_cast<ReturnCode_t>(m_writer->write(&hello)) == ReturnCode_t::RETCODE_OK) {
+    if (static_cast<ReturnCode_t>(m_writer->write(&hello_msg)) == ReturnCode_t::RETCODE_OK) {
         setStatus("Message sent: " + message);
         addMessage("Sent: " + message);
     } else {
@@ -135,12 +135,12 @@ void DDSManager::startReceiving()
     // Use a timer to periodically check for messages
     QTimer* timer = new QTimer(this);
     connect(timer, &QTimer::timeout, [this]() {
-        HelloWorld hello;
+        HelloWorldMsg hello_msg;
         SampleInfo info;
 
-        if (m_reader->take_next_sample(&hello, &info) == ReturnCode_t::RETCODE_OK) {
+        if (m_reader->take_next_sample(&hello_msg, &info) == ReturnCode_t::RETCODE_OK) {
             if (info.valid_data) {
-                QString msg = QString::fromStdString(hello.message());
+                QString msg = QString::fromStdString(hello_msg.message());
                 setStatus("Received: " + msg);
                 addMessage("Received: " + msg);
                 emit messageReceived(msg);

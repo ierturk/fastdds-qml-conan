@@ -4,5 +4,5 @@
       "CMAKE_PREFIX_PATH": "${workspaceFolder}/build/generators"
     },
     "cmake.buildDirectory": "${workspaceFolder}/build",
-    "cmake.generator": "Visual Studio 17 2022"
+    "cmake.generator": "Ninja"
 }

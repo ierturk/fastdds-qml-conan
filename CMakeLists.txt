@@ -21,17 +21,43 @@ qt_add_resources(QML_RESOURCES
 
 # Add source files
 set(SOURCES
-    src/HelloWorld.cxx
-    src/HelloWorldPubSubTypes.cxx
+    # src/HelloWorld.cxx
+    # src/HelloWorldPubSubTypes.cxx
     src/DDSManager.cpp
     src/main.cpp
 )
+
+# Add custom command for fastddsgen
+set(FASTDDSGEN_IDL_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/idl/HelloWorldMsg.idl)
+set(FASTDDSGEN_OUTPUT_DIR ${CMAKE_BINARY_DIR}/fastdds-gen)
+
+add_custom_command(
+    OUTPUT ${FASTDDSGEN_OUTPUT_DIR}/HelloWorldMsg.cxx ${FASTDDSGEN_OUTPUT_DIR}/HelloWorldMsgPubSubTypes.cxx
+    COMMAND fastddsgen -d ${FASTDDSGEN_OUTPUT_DIR} ${FASTDDSGEN_IDL_FILE}
+    DEPENDS ${FASTDDSGEN_IDL_FILE}
+    COMMENT "Generating Fast DDS code from ${FASTDDSGEN_IDL_FILE}"
+    VERBATIM
+)
+
+# Add generated files to the sources
+list(APPEND SOURCES
+    ${FASTDDSGEN_OUTPUT_DIR}/HelloWorldMsg.cxx
+    ${FASTDDSGEN_OUTPUT_DIR}/HelloWorldMsgPubSubTypes.cxx
+)
+
+# Add custom target to force generation
+# add_custom_target(generate_fastdds_code
+#     DEPENDS ${FASTDDSGEN_OUTPUT_DIR}/HelloWorldMsg.cxx ${FASTDDSGEN_OUTPUT_DIR}/HelloWorldMsgPubSubTypes.cxx
+# )
 
 # Create GUI application
 add_executable(fastdds_qml 
     ${SOURCES}
     ${QML_RESOURCES}
 )
+
+# Ensure the custom target runs before building the executable
+# add_dependencies(fastdds_qml generate_fastdds_code)
 
 # Link with Fast DDS and Qt libraries
 target_link_libraries(fastdds_qml PRIVATE
@@ -42,7 +68,7 @@ target_link_libraries(fastdds_qml PRIVATE
 )
 
 # Include directories
-target_include_directories(fastdds_qml PRIVATE src)
+target_include_directories(fastdds_qml PRIVATE src ${FASTDDSGEN_OUTPUT_DIR})
 
 # Installation rules
 install(TARGETS fastdds_qml DESTINATION bin)
