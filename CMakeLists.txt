@@ -21,8 +21,6 @@ qt_add_resources(QML_RESOURCES
 
 # Add source files
 set(SOURCES
-    # src/HelloWorld.cxx
-    # src/HelloWorldPubSubTypes.cxx
     src/DDSManager.cpp
     src/main.cpp
 )

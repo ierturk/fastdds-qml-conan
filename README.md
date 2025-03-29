@@ -11,9 +11,7 @@ This project demonstrates how to use Fast DDS with a QML GUI, managed by Conan 2
 - Ninja build
 
 ## Building on Windows
-
-1. **Setup and Build from Commandline**
-Start `a x64 Native Tools Command Prompt for VS 2022`
+Start `an x64 Native Tools Command Prompt for VS 2022`
 ```bash
 PS> conan profile detect
 PS> conan install .  --build=missing
